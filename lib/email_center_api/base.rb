@@ -3,6 +3,18 @@ module EmailCenterApi
     include HTTParty
     default_timeout 10
 
+    def self.get(*args, &block)
+      base_uri EmailCenterApi.endpoint
+      basic_auth EmailCenterApi.username, EmailCenterApi.password
+      super(*args, &block)
+    end
+
+    def self.post(*args, &block)
+      base_uri EmailCenterApi.endpoint
+      basic_auth EmailCenterApi.username, EmailCenterApi.password
+      super(*args, &block)
+    end
+
     def self.raise_errors(response)
       if response['msg']
         raise "Api Error: #{response['msg']}"
