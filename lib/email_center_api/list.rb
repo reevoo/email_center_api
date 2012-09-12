@@ -5,8 +5,8 @@ module EmailCenterApi
     def initialize(name, created_ts, list_total, folder_id, type, id, status, update_ts)
       self.name = name
       self.created_ts = created_ts
-      self.list_total = list_total
-      self.folder_id = folder_id
+      self.list_total = list_total.to_i
+      self.folder_id = folder_id.to_i
       self.type = type
       self.id = id.to_i
       self.status = status
