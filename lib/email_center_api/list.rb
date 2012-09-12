@@ -13,6 +13,10 @@ module EmailCenterApi
       self.update_ts = update_ts
     end
 
+    def insert_recipient(options)
+      self.class.insert_recipient(id, options)
+    end
+
     def self.find(list_id)
       require 'pry'
       #binding.pry

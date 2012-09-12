@@ -80,5 +80,16 @@ describe EmailCenterApi::List do
       EmailCenterApi::List.insert_recipient(25, options).email_address.should == email
       EmailCenterApi::List.insert_recipient(25, options).updated_at.should == time
     end
+
+    describe "an instance method .insert_recipient" do
+      list = EmailCenterApi::List.new("A List", Time.now.to_s, 123, 14, "Sometype", 25, "A Status", Time.now.to_s)
+      it "works in a similar way" do
+        list.insert_recipient(options).class.should == EmailCenterApi::Recipient
+        list.insert_recipient(options).id.should == id
+        list.insert_recipient(options).email_address.should == email
+        list.insert_recipient(options).updated_at.should == time
+      end
+    end
+  end
   end
 end
