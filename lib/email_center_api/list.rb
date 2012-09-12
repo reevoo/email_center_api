@@ -17,9 +17,24 @@ module EmailCenterApi
       self.class.insert_recipient(id, options)
     end
 
+    def delete_recipient(recipient)
+      self.class.delete_recipient(id,recipient.to_i)
+    end
+
+    def recipients
+      response = self.class.get_with_retry("/list", :query => {:method => "fetchRecipients", "listId" => id, :limit => 100, :start => 0, :sort => "email_address", :dir => "ASC", :filter => ["email_address"]})
+      recipients = []
+      if response.success?
+        response['records'].each do |record|
+          recipients << EmailCenterApi::Recipient.new(record['recipient_id'],record['email_address'],record['update_ts'])
+        end
+      else
+        raise_errors(response)
+      end
+      recipients
+    end
+
     def self.find(list_id)
-      require 'pry'
-      #binding.pry
       response = get_with_retry("/list?method=find&listId=#{list_id}")
       if response.success?
         self.new(response['name'], response['created_ts'], response['list_total'], response['folder_id'],
@@ -53,11 +68,22 @@ module EmailCenterApi
     end
 
     def self.insert_recipient(list_id, options)
-      body = { :listId => list_id, :data => options }
-      options = {:body => body, :query => {:method => "insertRecipient"} }
-      response = post("/list", options)
+      body = { :method => "insertRecipient", :listId => list_id, :data => options }
+      response = post("/list", {:body => body })
       if response.success?
         Recipient.new(response['recipient_id'],response['email_address'],response['update_ts'])
+      else
+        raise_errors(response)
+      end
+    end
+
+    def self.delete_recipient(list_id, recipient_id)
+      body = { :method => "deleteRecipient", :listId => list_id, :recipientId => recipient_id }
+      response = post("/list", { :body => body })
+      if response.success?
+        response
+      else
+        raise_errors(response)
       end
     end
   end

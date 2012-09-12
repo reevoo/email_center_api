@@ -20,7 +20,7 @@ module EmailCenterApi
     end
 
     def unsubscribed?
-      unsubscibed_from.empty?
+      !unsubscribed_from.empty?
     end
 
     def unsubscribed_from
@@ -35,15 +35,16 @@ module EmailCenterApi
     end
 
     def self.find(id)
-      get("/recipient?method=find&recipientId=#{id}")
+      recipient = get_with_retry("/recipient?method=find&recipientId=#{id}")
+      self.new(recipient['recipient_id'],recipient['email_address'],recipient['update_ts'])
     end
 
     def self.find_by_email(email_address)
       id = get_with_retry("/recipient?method=findByEmailAddress&emailAddress=#{email_address}")
       if id.success?
-        recipient = get_with_retry("/recipient?method=find&recipientId=#{id}")
+        recipient = get_with_retry("/recipient?method=find&recipientId=#{id.body}")
         if recipient.success?
-          self.new(recipient['recipient_id'],recipient['email_address'],recipient['domain_name'],recipient['update_ts'])
+          self.new(recipient['recipient_id'],recipient['email_address'],recipient['update_ts'])
         else
           raise 
         end
