@@ -3,6 +3,10 @@ module EmailCenterApi
     include HTTParty
     default_timeout 10
 
+    def to_i
+      id
+    end
+
     def self.get(*args, &block)
       base_uri EmailCenterApi.endpoint
       basic_auth EmailCenterApi.username, EmailCenterApi.password
