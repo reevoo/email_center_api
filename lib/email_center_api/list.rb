@@ -1,14 +1,14 @@
 module EmailCenterApi
   class List < EmailCenterApi::Base
-    attr_accessor :name, :created_ts, :list_total, :folder_id, :type, :list_id, :status, :update_ts
+    attr_accessor :name, :created_ts, :list_total, :folder_id, :type, :id, :status, :update_ts
 
-    def initialize(name, created_ts, list_total, folder_id, type, list_id, status, update_ts)
+    def initialize(name, created_ts, list_total, folder_id, type, id, status, update_ts)
       self.name = name
       self.created_ts = created_ts
       self.list_total = list_total
       self.folder_id = folder_id
       self.type = type
-      self.list_id = list_id.to_i
+      self.id = id.to_i
       self.status = status
       self.update_ts = update_ts
     end
