@@ -19,16 +19,14 @@ module EmailCenterApi
       if response['msg']
         raise "Api Error: #{response['msg']}"
       else
-        raise "General Error!"
+        raise "Email Center Api: General Error!"
       end
     end
 
-    def self.get_with_retry(url)
-      base_uri EmailCenterApi.endpoint
-      basic_auth EmailCenterApi.username, EmailCenterApi.password
+    def self.get_with_retry(*args, &block)
       retries = 0
       begin
-        get(url)
+        get(*args, &block)
       rescue Timeout::Error
         raise if (self.retries += 1) > 3
         retry
