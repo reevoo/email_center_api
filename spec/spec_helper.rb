@@ -83,3 +83,11 @@ all_templates = '[{"text":"email_template",
 FakeWeb.register_uri(:get, 'https://test:test@maxemail.emailcenteruk.com/api/json/tree?method=fetchRoot&tree=email_template&children[]=root',
                      :body => all_templates,
                      :content_type => 'application/json')
+
+#All emails
+all_emails = '[]'
+
+
+FakeWeb.register_uri(:get, 'https://test:test@maxemail.emailcenteruk.com/api/json/tree?method=fetchRoot&tree=email&children[]=root',
+                     :body => all_emails,
+                     :content_type => 'application/json')
