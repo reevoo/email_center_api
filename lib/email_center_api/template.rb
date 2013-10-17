@@ -8,7 +8,7 @@ module EmailCenterApi
     end
 
     def self.all
-      response = get_tree('email_template')
+      response = get_root('email_template')
       if response.success?
         templates = []
         response.first['children'].each do |template|

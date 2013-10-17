@@ -37,7 +37,7 @@ module EmailCenterApi
       end
     end
 
-    def self.get_tree(tree)
+    def self.get_root(tree)
       get_with_retry('/tree', query: { method: 'fetchRoot', tree: tree, children: ['root'] })
     end
   end
