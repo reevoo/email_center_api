@@ -11,3 +11,4 @@ end
 require "email_center_api/list"
 require "email_center_api/recipient"
 require "email_center_api/template"
+require "email_center_api/email"

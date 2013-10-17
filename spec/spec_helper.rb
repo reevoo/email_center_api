@@ -55,6 +55,17 @@ FakeWeb.register_uri(:get,
                      :body => '{"success":false, "msg":"Invalid Node Class", "code":0, "errors":[]}',
                      :content_type => 'application/json; charset=utf-8')
 
+# Successfull fetchTree
+FakeWeb.register_uri(:get, 'https://test:test@maxemail.emailcenteruk.com/api/json/tree?method=fetchTree&tree=email&nodeClass=folder&nodeId=0',
+                     :body => '[]',
+                     :content_type => 'application/json')
+
+#Bad tree in fetchTree
+FakeWeb.register_uri(:get,
+                     'https://test:test@maxemail.emailcenteruk.com/api/json/tree?method=fetchTree&tree=some_root&nodeClass=folder&nodeId=0',
+                     :body => '{"success":false, "msg":"Invalid Node Class", "code":0, "errors":[]}',
+                     :content_type => 'application/json; charset=utf-8')
+
 #All templates (simplified)
 all_templates = '[{"text":"email_template",
                   "children":[
@@ -69,4 +80,6 @@ all_templates = '[{"text":"email_template",
                        "nodeClass":"email_template"}
                   ]
                  }]'
-FakeWeb.register_uri(:get, "https://test:test@maxemail.emailcenteruk.com/api/json/tree?method=fetchRoot&tree=email_template&children[]=root", :body => all_templates, :content_type => "application/json")
+FakeWeb.register_uri(:get, 'https://test:test@maxemail.emailcenteruk.com/api/json/tree?method=fetchRoot&tree=email_template&children[]=root',
+                     :body => all_templates,
+                     :content_type => 'application/json')
