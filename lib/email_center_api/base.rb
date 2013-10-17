@@ -38,7 +38,7 @@ module EmailCenterApi
     end
 
     def self.get_root(tree)
-      get_with_retry('/tree', query: { method: 'fetchRoot', tree: tree, children: ['root'] })
+      get_with_retry('/tree', :query => { :method => 'fetchRoot', :tree => tree, :children => ['root'] })
     end
   end
 end
