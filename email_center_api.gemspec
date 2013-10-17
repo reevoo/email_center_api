@@ -9,9 +9,9 @@ Gem::Specification.new do |gem|
   gem.version       = EmailCenterApi::VERSION
   gem.authors       = ["Ed Robinson"]
   gem.email         = Base64.decode64("ZWQucm9iaW5zb25AcmVldm9vLmNvbQ==\n")
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.description   = "A RubyGem That wraps EmailCenter's maxemail JSON Api"
+  gem.summary       = "A RubyGem That wraps EmailCenter's maxemail JSON Api"
+  gem.homepage      = "https://github.com/reevoo/email_center_api"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
