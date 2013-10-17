@@ -3,6 +3,7 @@ require 'email_center_api/list'
 require 'email_center_api/recipient'
 require 'email_center_api/configuration'
 
+require 'pry'
 require 'fakeweb'
 require 'httparty'
 FakeWeb.allow_net_connect = false
@@ -46,6 +47,13 @@ FakeWeb.register_uri(:get, "https://test:test@maxemail.emailcenteruk.com/api/jso
 FakeWeb.register_uri(:get, "https://test:test@maxemail.emailcenteruk.com/api/json/list?method=find&listId=26", :body => "{\"list_id\":\"26\",\"folder_id\":\"9\",\"name\":\"tunsublist\",\"list_total\":\"2\",\"status\":\"available\",\"type\":\"something\",\"created_ts\":\"2012-09-10 13:39:19\",\"update_ts\":\"2012-09-12 10:23:20\"}", :content_type => "application/json")
 
 FakeWeb.register_uri(:get, "https://test:test@maxemail.emailcenteruk.com/api/json/recipient?emailAddress=test%40example.co.uk&method=findByEmailAddress", :body => "1234")
+
+
+#Bad tree in fetchRoot
+FakeWeb.register_uri(:get,
+                     'https://test:test@maxemail.emailcenteruk.com/api/json/tree?method=fetchRoot&tree=some_root&children[]=root',
+                     :body => '{"success":false, "msg":"Invalid Node Class", "code":0, "errors":[]}',
+                     :content_type => 'application/json; charset=utf-8')
 
 #All templates (simplified)
 all_templates = '[{"text":"email_template",

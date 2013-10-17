@@ -9,16 +9,12 @@ module EmailCenterApi
 
     def self.all
       response = get_root('email_template')
-      if response.success?
-        templates = []
-        response.first['children'].each do |template|
-          templates << self.new(template['text'],
-                                template['nodeId'])
-        end
-        templates
-      else
-        raise_errors response
+      templates = []
+      response.first['children'].each do |template|
+        templates << self.new(template['text'],
+                              template['nodeId'])
       end
+      templates
     end
   end
 end
