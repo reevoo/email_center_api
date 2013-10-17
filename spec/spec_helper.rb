@@ -46,3 +46,19 @@ FakeWeb.register_uri(:get, "https://test:test@maxemail.emailcenteruk.com/api/jso
 FakeWeb.register_uri(:get, "https://test:test@maxemail.emailcenteruk.com/api/json/list?method=find&listId=26", :body => "{\"list_id\":\"26\",\"folder_id\":\"9\",\"name\":\"tunsublist\",\"list_total\":\"2\",\"status\":\"available\",\"type\":\"something\",\"created_ts\":\"2012-09-10 13:39:19\",\"update_ts\":\"2012-09-12 10:23:20\"}", :content_type => "application/json")
 
 FakeWeb.register_uri(:get, "https://test:test@maxemail.emailcenteruk.com/api/json/recipient?emailAddress=test%40example.co.uk&method=findByEmailAddress", :body => "1234")
+
+#All templates (simplified)
+all_templates = '[{"text":"email_template",
+                  "children":[
+                      {"text":"A template",
+                       "nodeId":"10",
+                       "nodeClass":"email_template"},
+                      {"text":"Another template",
+                       "nodeId":"11",
+                       "nodeClass":"email_template"},
+                      {"text":"More templates",
+                       "nodeId":"12",
+                       "nodeClass":"email_template"}
+                  ]
+                 }]'
+FakeWeb.register_uri(:get, "https://test:test@maxemail.emailcenteruk.com/api/json/tree?method=fetchRoot&tree=email_template&children[]=root", :body => all_templates, :content_type => "application/json")
