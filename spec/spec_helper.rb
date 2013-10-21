@@ -7,6 +7,13 @@ require 'pry'
 require 'fakeweb'
 require 'httparty'
 
+RSpec.configure do |config|
+
+  config.before(:all) do
+    EmailCenterApi.config_path = File.dirname(__FILE__) + "/support/fake_config.yml"
+  end
+
+end
 
 
 

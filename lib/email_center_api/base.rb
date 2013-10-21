@@ -1,25 +1,11 @@
 module EmailCenterApi
   class Base
-    include HTTParty
-    default_timeout 10
 
     def to_i
       id
     end
 
     class << self
-
-      def get(*args, &block)
-        base_uri EmailCenterApi.endpoint
-        basic_auth EmailCenterApi.username, EmailCenterApi.password
-        super(*args, &block)
-      end
-
-      def post(*args, &block)
-        base_uri EmailCenterApi.endpoint
-        basic_auth EmailCenterApi.username, EmailCenterApi.password
-        super(*args, &block)
-      end
 
       def raise_errors(response)
         if response['msg']
@@ -29,18 +15,9 @@ module EmailCenterApi
         end
       end
 
-      def get_with_retry(*args, &block)
-        retries = 0
-        begin
-          get(*args, &block)
-        rescue Timeout::Error
-          raise if (self.retries += 1) > 3
-          retry
-        end
-      end
-
       def get_root(tree)
-        response = get_with_retry('/tree', :query =>
+        EmailCenterApi::Helpers::HttpClient
+        response = EmailCenterApi::Helpers::HttpClient.get('/tree', :query =>
             {:method => 'fetchRoot',
              :tree => tree,
              :children => ['root']})
@@ -53,7 +30,7 @@ module EmailCenterApi
       end
 
       def get_tree(tree, node_class, node_id)
-        response = get_with_retry('/tree', :query =>
+        response = EmailCenterApi::Helpers::HttpClient.get('/tree', :query =>
             {:method => 'fetchTree',
              :tree => tree,
              :nodeClass => node_class,
@@ -67,7 +44,7 @@ module EmailCenterApi
       end
 
       def get_node(node_class, node_id)
-        response = get_with_retry('/tree', :query =>
+        response = EmailCenterApi::Helpers::HttpClient.get('/tree', :query =>
             {:method => 'fetchNode',
              :nodeClass => node_class,
              :nodeId => node_id})
