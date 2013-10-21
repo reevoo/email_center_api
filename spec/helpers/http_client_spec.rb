@@ -10,15 +10,15 @@ describe EmailCenterApi::Helpers::HttpClient do
 
     it 'uses the configured API endpoint' do
       described_class::Connection.should_receive(:base_uri).with(
-        EmailCenterApi.config[:base_uri]
+        EmailCenterApi.config['base_uri']
       )
       described_class.get('/tree')
     end
 
     it 'logs the user in' do
       described_class::Connection.should_receive(:basic_auth).with(
-        EmailCenterApi.config[:username],
-        EmailCenterApi.config[:password]
+        EmailCenterApi.config['username'],
+        EmailCenterApi.config['password']
       )
       described_class.get('/tree')
     end

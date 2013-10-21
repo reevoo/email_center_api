@@ -1,1 +1,3 @@
-base_uri: 'https://email_center.com/'
+base_uri: 'https://maxemail.emailcenteruk.com/api/json/'
+username: test
+password: test

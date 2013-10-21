@@ -34,8 +34,8 @@ module EmailCenterApi::Helpers
       class << self
 
         def configure(config)
-          base_uri config[:base_uri]
-          basic_auth config[:username], config[:password]
+          base_uri config['base_uri']
+          basic_auth config['username'], config['password']
         end
       end
     end

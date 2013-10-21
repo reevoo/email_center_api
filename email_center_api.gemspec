@@ -22,4 +22,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency("fakeweb", "~> 1.3.0")
   gem.add_development_dependency("rspec", "~> 2.11.0")
   gem.add_development_dependency("pry")
+  gem.add_development_dependency("pry-debugger")
 end

@@ -6,63 +6,16 @@ module EmailCenterApi
     end
 
     class << self
-
-      def raise_errors(response)
-        if response['msg']
-          raise "Api Error: #{response['msg']}"
-        else
-          raise "Email Center Api: General Error!"
-        end
+      def get_root(tree_root)
+        Helpers::Tree.new(tree_root).root
       end
 
-      def get_root(tree)
-        EmailCenterApi::Helpers::HttpClient
-        response = EmailCenterApi::Helpers::HttpClient.get('/tree', :query =>
-            {:method => 'fetchRoot',
-             :tree => tree,
-             :children => ['root']})
-
-        if successful?(response)
-          return response
-        else
-          raise_errors(response)
-        end
-      end
-
-      def get_tree(tree, node_class, node_id)
-        response = EmailCenterApi::Helpers::HttpClient.get('/tree', :query =>
-            {:method => 'fetchTree',
-             :tree => tree,
-             :nodeClass => node_class,
-             :nodeId => node_id})
-
-        if successful?(response)
-          return response
-        else
-          raise_errors(response)
-        end
+      def get_tree(tree_root, node_class, node_id)
+        Helpers::Tree.new(tree_root).tree(node_class, node_id)
       end
 
       def get_node(node_class, node_id)
-        response = EmailCenterApi::Helpers::HttpClient.get('/tree', :query =>
-            {:method => 'fetchNode',
-             :nodeClass => node_class,
-             :nodeId => node_id})
-
-        if successful?(response)
-          return response
-        else
-          raise_errors(response)
-        end
-      end
-
-      private
-
-      def successful?(response)
-        # Email center seems to only include response['success'] on failure.
-        return false unless response.success?
-        return true unless (response.is_a?(Hash) &&
-            (response['success'] == false))
+        Helpers::Tree.new.node(node_class, node_id)
       end
     end
   end

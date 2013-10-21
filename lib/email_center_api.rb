@@ -28,3 +28,4 @@ require "email_center_api/template"
 require "email_center_api/email"
 
 require "email_center_api/helpers/http_client"
+require "email_center_api/helpers/tree"

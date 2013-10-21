@@ -1,7 +1,4 @@
 require 'email_center_api'
-require 'email_center_api/list'
-require 'email_center_api/recipient'
-require 'email_center_api/configuration'
 
 require 'pry'
 require 'fakeweb'
@@ -21,8 +18,7 @@ end
 FakeWeb.allow_net_connect = false
 
 #Bad tree in fetchRoot
-FakeWeb.register_uri(:get,
-                     'https://test:test@maxemail.emailcenteruk.com/api/json/tree?method=fetchRoot&tree=some_root&children[]=root',
+FakeWeb.register_uri(:get, 'https://test:test@maxemail.emailcenteruk.com/api/json/tree?method=fetchRoot&tree=some_root&children[]=root',
                      :body => '{"success":false, "msg":"Invalid Node Class", "code":0, "errors":[]}',
                      :content_type => 'application/json; charset=utf-8')
 

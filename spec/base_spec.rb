@@ -4,7 +4,7 @@ describe EmailCenterApi::Base do
 
   describe '.get_root' do
     it 'returns a response with a valid node' do
-      EmailCenterApi::Base.get_root('email_template').class.should == HTTParty::Response
+      expect { EmailCenterApi::Base.get_root('email_template') }.to_not raise_error
     end
 
     it 'raises an error with an invalid node' do
@@ -16,7 +16,7 @@ describe EmailCenterApi::Base do
 
   describe '.get_tree' do
     it 'returns a response with a valid node' do
-      EmailCenterApi::Base.get_tree('email', 'folder', 0).class.should == HTTParty::Response
+      expect { EmailCenterApi::Base.get_tree('email', 'folder', 0) }.to_not raise_error
     end
 
     it 'raises an error with an invalid node' do
