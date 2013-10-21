@@ -1,5 +1,7 @@
 module EmailCenterApi
-  class Template < EmailCenterApi::Base
+  class Template
+    TREE_ROOT = 'email_template'
+
     attr_accessor :text, :node_id
 
     def initialize(text, node_id)
@@ -8,7 +10,7 @@ module EmailCenterApi
     end
 
     def self.all
-      response = get_root('email_template')
+      response = Helpers::Tree.new(TREE_ROOT).root
       templates = []
       response.first['children'].each do |template|
         templates << self.new(template['text'],

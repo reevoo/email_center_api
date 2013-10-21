@@ -1,8 +1,3 @@
-require "httparty"
-require "email_center_api/version"
-require "email_center_api/base"
-require 'yaml'
-
 module EmailCenterApi
   DEFAULT_PATH = 'config/email_center_api.yml'
 
@@ -22,8 +17,13 @@ module EmailCenterApi
   extend self
 end
 
+require 'httparty'
+require 'yaml'
+require 'delegate'
+
 require "email_center_api/template"
 require "email_center_api/email"
 
 require "email_center_api/helpers/http_client"
 require "email_center_api/helpers/tree"
+require "email_center_api/version"

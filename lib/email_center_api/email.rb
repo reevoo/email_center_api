@@ -1,5 +1,7 @@
 module EmailCenterApi
-  class Email < EmailCenterApi::Base
+  class Email
+    TREE_ROOT = 'email'
+
     attr_accessor :text, :node_id, :node_class
 
     def initialize(text, node_id, node_class)
@@ -13,7 +15,7 @@ module EmailCenterApi
       def all(node_id=0, node_class='folder')
         emails = []
 
-        response = _get_branch(node_class, node_id)
+        response = get_branch(node_class, node_id)
         response.each do |node|
           p "Text: #{ node['text'] }, Class: #{ node['nodeClass'] }, ID: #{ node['nodeId'] }, hasChildren: #{ node['haschildren'] }"
           if node['nodeClass'].start_with?('email')
@@ -28,11 +30,11 @@ module EmailCenterApi
 
       private
 
-      def _get_branch(node_class, node_id)
+      def get_branch(node_class, node_id)
         if node_id == 0
-          get_root('email')
+          Helpers::Tree.new(TREE_ROOT).root
         else
-          get_tree('email', node_class, node_id)
+          Helpers::Tree.new(TREE_ROOT).tree(node_class, node_id)
         end
       end
     end
