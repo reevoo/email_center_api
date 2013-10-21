@@ -66,6 +66,19 @@ module EmailCenterApi
         end
       end
 
+      def get_node(node_class, node_id)
+        response = get_with_retry('/tree', :query =>
+            {:method => 'fetchNode',
+             :nodeClass => node_class,
+             :nodeId => node_id})
+
+        if successful?(response)
+          return response
+        else
+          raise_errors(response)
+        end
+      end
+
       private
 
       def successful?(response)
