@@ -1,6 +1,5 @@
 require "httparty"
 require "email_center_api/version"
-require "email_center_api/configuration"
 require "email_center_api/base"
 require 'yaml'
 
@@ -21,7 +20,6 @@ module EmailCenterApi
   end
 
   extend self
-  extend Configuration
 end
 
 require "email_center_api/template"
