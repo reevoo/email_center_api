@@ -1,4 +1,4 @@
-module EmailCenterApi
+module EmailCenterApi::Trees
   class Template
     TREE_ROOT = 'email_template'
 
@@ -10,7 +10,7 @@ module EmailCenterApi
     end
 
     def self.all
-      response = Helpers::Tree.new(TREE_ROOT).root
+      response = EmailCenterApi::Helpers::Tree.new(TREE_ROOT).root
       templates = []
       response.first['children'].each do |template|
         templates << self.new(template['text'],

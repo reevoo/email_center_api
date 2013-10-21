@@ -1,4 +1,4 @@
-module EmailCenterApi
+module EmailCenterApi::Trees
   class Email
     TREE_ROOT = 'email'
 
@@ -17,7 +17,7 @@ module EmailCenterApi
 
         response = get_branch(node_class, node_id)
         response.each do |node|
-          p "Text: #{ node['text'] }, Class: #{ node['nodeClass'] }, ID: #{ node['nodeId'] }, hasChildren: #{ node['haschildren'] }"
+          #p "Text: #{ node['text'] }, Class: #{ node['nodeClass'] }, ID: #{ node['nodeId'] }, hasChildren: #{ node['haschildren'] }"
           if node['nodeClass'].start_with?('email')
             emails << self.new(node['text'], node['nodeId'], node['nodeClass'])
           end
@@ -32,9 +32,9 @@ module EmailCenterApi
 
       def get_branch(node_class, node_id)
         if node_id == 0
-          Helpers::Tree.new(TREE_ROOT).root
+          EmailCenterApi::Helpers::Tree.new(TREE_ROOT).root
         else
-          Helpers::Tree.new(TREE_ROOT).tree(node_class, node_id)
+          EmailCenterApi::Helpers::Tree.new(TREE_ROOT).tree(node_class, node_id)
         end
       end
     end

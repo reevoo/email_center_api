@@ -16,3 +16,4 @@ test/tmp
 test/version_tmp
 tmp
 test_email_center.rb
+config/email_center_api.yml
