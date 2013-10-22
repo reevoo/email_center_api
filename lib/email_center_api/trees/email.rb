@@ -2,12 +2,13 @@ module EmailCenterApi::Trees
   class Email
     TREE_ROOT = 'email'
 
-    attr_accessor :text, :node_id, :node_class
+    attr_reader :name, :node_id, :node_class
 
-    def initialize(text, node_id, node_class)
-      self.text = text
-      self.node_id = node_id.to_i
-      self.node_class = node_class
+    def initialize(name, node_id, node_class)
+      @name = name
+      @node_id = node_id.to_i
+      @node_class = node_class
+    end
     end
 
     class << self

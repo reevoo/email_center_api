@@ -2,11 +2,11 @@ module EmailCenterApi::Trees
   class Template
     TREE_ROOT = 'email_template'
 
-    attr_accessor :text, :node_id
+    attr_reader :name, :node_id
 
-    def initialize(text, node_id)
-      self.text = text
-      self.node_id = node_id.to_i
+    def initialize(name, node_id)
+      @name = name
+      @node_id = node_id.to_i
     end
 
     def self.all
