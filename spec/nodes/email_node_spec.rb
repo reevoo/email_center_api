@@ -8,7 +8,7 @@ describe EmailCenterApi::Nodes::EmailNode do
         json_object = [{ 'text' => 'Reevoo-test', 'nodeId' => '145', 'nodeClass' => 'email_template'}]
 
         expect_any_instance_of(
-          EmailCenterApi::Helpers::Tree
+          EmailCenterApi::Query
         ).to receive(:tree).with('folder', 584).and_return(json_object)
 
         expect(described_class.emails(folder: 584)).to eq([
@@ -20,7 +20,7 @@ describe EmailCenterApi::Nodes::EmailNode do
         json_object = [{ 'text' => 'Reevoo-test', 'nodeId' => '145', 'nodeClass' => 'folder'}]
 
         expect_any_instance_of(
-          EmailCenterApi::Helpers::Tree
+          EmailCenterApi::Query
         ).to receive(:tree).with('folder', 584).and_return(json_object)
 
         expect(described_class.emails(folder: 584)).to be_empty
@@ -28,7 +28,7 @@ describe EmailCenterApi::Nodes::EmailNode do
 
       it 'returns empty array when folder ID does not exist' do
         expect_any_instance_of(
-          EmailCenterApi::Helpers::Tree
+          EmailCenterApi::Query
         ).to receive(:tree).and_raise(EmailCenterApi::ApiError)
 
         expect(described_class.emails(folder: 584)).to be_empty
@@ -48,7 +48,7 @@ describe EmailCenterApi::Nodes::EmailNode do
         json_object = [{ 'text' => 'Reevoo-test', 'nodeId' => '145', 'nodeClass' => 'folder'}]
 
         expect_any_instance_of(
-          EmailCenterApi::Helpers::Tree
+          EmailCenterApi::Query
         ).to receive(:tree).with('folder', 0).and_return(json_object)
 
         expect(described_class.folders).to eq([
@@ -62,7 +62,7 @@ describe EmailCenterApi::Nodes::EmailNode do
         json_object = [{ 'text' => 'Reevoo-test', 'nodeId' => '145', 'nodeClass' => 'folder'}]
 
         expect_any_instance_of(
-          EmailCenterApi::Helpers::Tree
+          EmailCenterApi::Query
         ).to receive(:tree).with('folder', 777).and_return(json_object)
 
         expect(described_class.folders(parent: 777)).to eq([
@@ -85,7 +85,7 @@ describe EmailCenterApi::Nodes::EmailNode do
 
       it 'will trigger sending of the email' do
         expect_any_instance_of(
-          EmailCenterApi::Helpers::Trigger
+          EmailCenterApi::Trigger
         ).to receive(:trigger).with(100, email_address, options)
 
         email = described_class.new('Trigger Test', 100, 'email_triggered')

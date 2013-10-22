@@ -36,7 +36,7 @@ module EmailCenterApi::Nodes
       end
 
       def finder
-        EmailCenterApi::Helpers::Tree.new(TREE_ROOT)
+        EmailCenterApi::Query.new(TREE_ROOT)
       end
     end
 
@@ -66,7 +66,7 @@ module EmailCenterApi::Nodes
 
     def trigger(email_address, options={})
       super if is_folder?
-      EmailCenterApi::Helpers::Trigger.new.trigger(node_id, email_address, options)
+      EmailCenterApi::Trigger.new.trigger(node_id, email_address, options)
     end
 
     private

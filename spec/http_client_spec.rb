@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe EmailCenterApi::Helpers::HttpClient do
+describe EmailCenterApi::HttpClient do
   describe '#get' do
 
     before do

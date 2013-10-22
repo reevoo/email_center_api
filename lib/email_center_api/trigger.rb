@@ -1,4 +1,4 @@
-module EmailCenterApi::Helpers
+module EmailCenterApi
   class Trigger
 
     def trigger(email_id, email_address, options)

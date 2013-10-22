@@ -1,4 +1,4 @@
-module EmailCenterApi::Helpers
+module EmailCenterApi
   class ResponseValidator
     attr_reader :response
     def initialize(response)

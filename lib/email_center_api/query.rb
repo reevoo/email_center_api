@@ -1,5 +1,5 @@
-module EmailCenterApi::Helpers
-  class Tree
+module EmailCenterApi
+  class Query
     class TreeRootRequired < StandardError; end
 
     attr_reader :tree_root

@@ -1,4 +1,4 @@
-module EmailCenterApi::Helpers
+module EmailCenterApi
   class HttpClient
 
     class << self

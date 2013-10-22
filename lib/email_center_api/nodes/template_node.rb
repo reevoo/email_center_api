@@ -10,7 +10,7 @@ module EmailCenterApi::Nodes
     end
 
     def self.all
-      response = EmailCenterApi::Helpers::Tree.new(TREE_ROOT).root
+      response = EmailCenterApi::Query.new(TREE_ROOT).root
       response.first['children'].map do |template|
         self.new(
           template['text'],
