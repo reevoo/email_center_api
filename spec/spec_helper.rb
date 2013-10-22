@@ -1,6 +1,6 @@
 require 'email_center_api'
 
-require 'pry'
+require 'pry-debugger' unless ENV['RM_INFO']
 require 'fakeweb'
 require 'httparty'
 require 'json'

@@ -8,7 +8,7 @@ describe EmailCenterApi::Trees::Template do
 
     it 'returns templates with the correct text and node_id' do
       template = described_class.all.first
-      template.text.should == 'A template'
+      template.name.should == 'A template'
       template.node_id.should == 10
     end
   end

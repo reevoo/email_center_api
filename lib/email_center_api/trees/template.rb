@@ -11,12 +11,12 @@ module EmailCenterApi::Trees
 
     def self.all
       response = EmailCenterApi::Helpers::Tree.new(TREE_ROOT).root
-      templates = []
-      response.first['children'].each do |template|
-        templates << self.new(template['text'],
-                              template['nodeId'])
+      response.first['children'].map do |template|
+        self.new(
+          template['text'],
+          template['nodeId']
+        )
       end
-      templates
     end
   end
 end
