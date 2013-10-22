@@ -56,8 +56,11 @@ module EmailCenterApi::Helpers
       private
 
       def raise_errors
-        error_msg = response['msg'] ? "Api Error: #{response['msg']}" : "Email Center Api: General Error!"
-        raise(error_msg)
+        if response['msg']
+          raise EmailCenterApi::ApiError, "Api Error: #{response['msg']}"
+        else
+          raise EmailCenterApi::HttpError, "status: #{response.code}"
+        end
       end
 
       def successful?
