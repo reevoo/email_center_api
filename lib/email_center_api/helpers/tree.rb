@@ -4,7 +4,6 @@ module EmailCenterApi::Helpers
 
     attr_reader :tree_root
 
-
     def initialize(tree_root=nil)
       @tree_root = tree_root
     end

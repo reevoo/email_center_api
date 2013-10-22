@@ -71,4 +71,26 @@ describe EmailCenterApi::Trees::Node do
       end
     end
   end
+
+  describe '.trigger' do
+    context 'when an email type node' do
+      it 'will trigger sending of the email' do
+        email_address = 'test@reevoo.com'
+        options = {
+          'Reviews' => {
+            'retailer_product_name' => 'Test product',
+            'retailer_name' => 'test retailer',
+            'retailer_from' => 'reply@reevoo.com'
+          }
+        }
+
+        expect_any_instance_of(
+          EmailCenterApi::Helpers::Trigger
+        ).to receive(:trigger).with(100, email_address, options)
+
+        email = EmailCenterApi::Trees::Node.new('Trigger Test', 100, 'email_triggered')
+        email.trigger(email_address, options)
+      end
+    end
+  end
 end

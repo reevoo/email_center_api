@@ -64,6 +64,10 @@ module EmailCenterApi::Trees
       self.class.emails(folder: node_id)
     end
 
+    def trigger(email_address, options={})
+      EmailCenterApi::Helpers::Trigger.new.trigger(node_id, email_address, options)
+    end
+
     private
 
     def is_folder?

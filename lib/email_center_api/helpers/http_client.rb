@@ -18,12 +18,16 @@ module EmailCenterApi::Helpers
 
       private
 
-      def with_retries(attempt=0, attempts=3)
-        yield
-      rescue Timeout::Error
-        attempt += 1
-        retry if attempt <= attempts
-        raise
+      def with_retries(attempts=3)
+        error = nil
+        attempts.times do
+          begin
+            return yield
+          rescue Timeout::Error => e
+            error = e
+          end
+        end
+        raise error
       end
     end
 
