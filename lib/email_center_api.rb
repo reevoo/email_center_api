@@ -26,8 +26,8 @@ require 'httparty'
 require 'yaml'
 require 'delegate'
 
-require "email_center_api/trees/template"
-require "email_center_api/trees/node"
+require "email_center_api/nodes/template_node"
+require "email_center_api/nodes/email_node"
 
 require "email_center_api/helpers/http_client"
 require "email_center_api/helpers/response_validator"

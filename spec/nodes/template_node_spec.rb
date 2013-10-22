@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe EmailCenterApi::Trees::Template do
+describe EmailCenterApi::Nodes::TemplateNode do
   describe '.all' do
     it 'returns 3 items' do
       described_class.all.length.should == 3

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe EmailCenterApi::Trees::Node do
+describe EmailCenterApi::Nodes::EmailNode do
   describe '.emails' do
     context 'when a folder is specified' do
 
@@ -88,12 +88,12 @@ describe EmailCenterApi::Trees::Node do
           EmailCenterApi::Helpers::Trigger
         ).to receive(:trigger).with(100, email_address, options)
 
-        email = EmailCenterApi::Trees::Node.new('Trigger Test', 100, 'email_triggered')
+        email = described_class.new('Trigger Test', 100, 'email_triggered')
         email.trigger(email_address, options)
       end
 
       it 'will raise an arguement invalid error if node is not an email' do
-        email = EmailCenterApi::Trees::Node.new('Trigger Test', 100, 'folder')
+        email = described_class.new('Trigger Test', 100, 'folder')
         expect {
           email.trigger(email_address, options)
         }.to raise_error(NoMethodError)

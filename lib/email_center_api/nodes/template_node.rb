@@ -1,5 +1,5 @@
-module EmailCenterApi::Trees
-  class Template
+module EmailCenterApi::Nodes
+  class TemplateNode
     TREE_ROOT = 'email_template'
 
     attr_reader :name, :node_id

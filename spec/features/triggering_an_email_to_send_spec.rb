@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'when a trigger email exists' do
   it 'find the appropriate email and then trigger it to send' do
-    emails = EmailCenterApi::Trees::Node.emails(folder: 123)
+    emails = EmailCenterApi::Nodes::EmailNode.emails(folder: 123)
 
     email = emails.detect { |e| e.name == 'Test Email' }
 

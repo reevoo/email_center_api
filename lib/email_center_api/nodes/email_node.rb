@@ -1,5 +1,5 @@
-module EmailCenterApi::Trees
-  class Node
+module EmailCenterApi::Nodes
+  class EmailNode
     TREE_ROOT = 'email'
 
     class << self
