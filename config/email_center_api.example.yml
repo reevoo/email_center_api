@@ -1,0 +1,3 @@
+base_uri: 'https://maxemail.emailcenteruk.com/api/json/'
+username: username@foo.com
+password: password
