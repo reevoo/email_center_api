@@ -36,8 +36,17 @@ describe EmailCenterApi::Nodes::EmailNode do
     end
 
     context 'when a folder is not specified' do
-      it 'raises an argument not found error' do
-        expect { described_class.emails(dashboard: 584) }.to raise_error(ArgumentError)
+      it 'it retrievs elements from teh root node' do
+        json_object = [{ 'text' => 'Reevoo-test', 'nodeId' => '145', 'nodeClass' => 'email_template'}]
+
+        expect_any_instance_of(
+          EmailCenterApi::Query
+        ).to receive(:tree).with('folder', 0).and_return(json_object)
+
+        expect(described_class.emails).to  eq([
+          described_class.new('Reevoo-test', 145, 'email_template')
+        ])
+
       end
     end
   end

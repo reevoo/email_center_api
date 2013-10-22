@@ -17,11 +17,9 @@ module EmailCenterApi::Nodes
         )
       end
 
-      def emails(selectors)
-        raise ArgumentError unless selectors[:folder]
-
+      def emails(selectors={})
         where(
-          selectors[:folder],
+          selectors[:folder] || 0,
           ->(node) { node['nodeClass'] =~ /^email/ }
         )
       end
@@ -54,6 +52,11 @@ module EmailCenterApi::Nodes
       name == other.name &&
       node_id == other.node_id &&
       node_class == other.node_class
+    end
+
+    def all
+      super unless is_folder?
+      self.class.all(parent: node_id)
     end
 
     def folders
