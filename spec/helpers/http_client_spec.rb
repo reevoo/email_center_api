@@ -23,7 +23,7 @@ describe EmailCenterApi::Helpers::HttpClient do
       described_class.get('/tree')
     end
 
-    context 'when a Timeout error is raised' do
+    context 'when a Timeout error is raised once' do
       before do
         described_class::Connection.stub(:get) do
           @attempt ||= 0
@@ -35,6 +35,14 @@ describe EmailCenterApi::Helpers::HttpClient do
 
       it 'retries the request' do
         described_class.get('/tree').should == 'Valid Result'
+      end
+    end
+
+    context 'when data is never returned before timeout' do
+      before { described_class::Connection.stub(:get).and_raise(Timeout::Error, 'did not complete') }
+
+      it 'when it times out' do
+        expect { described_class.get('/tree') }.to raise_error(EmailCenterApi::HttpTimeoutError, 'did not complete')
       end
     end
 

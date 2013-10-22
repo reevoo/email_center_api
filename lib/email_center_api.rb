@@ -2,6 +2,7 @@ module EmailCenterApi
   class AllErrors < StandardError; end
   class ApiError < AllErrors; end
   class HttpError < AllErrors; end
+  class HttpTimeoutError < AllErrors; end
 
   DEFAULT_PATH = 'config/email_center_api.yml'
 

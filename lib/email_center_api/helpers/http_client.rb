@@ -27,7 +27,7 @@ module EmailCenterApi::Helpers
             error = e
           end
         end
-        raise error
+        raise EmailCenterApi::HttpTimeoutError.new(error.message)
       end
     end
 
