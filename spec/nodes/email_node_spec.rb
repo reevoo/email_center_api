@@ -65,7 +65,7 @@ describe EmailCenterApi::Nodes::EmailNode do
           EmailCenterApi::Query
         ).to receive(:tree).with('folder', 777).and_return(json_object)
 
-        expect(described_class.folders(parent: 777)).to eq([
+        expect(described_class.folders(folder: 777)).to eq([
           described_class.new('Reevoo-test', 145, 'folder')
         ])
       end

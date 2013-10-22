@@ -3,10 +3,16 @@ module EmailCenterApi::Nodes
     TREE_ROOT = 'email'
 
     class << self
+      def all(selectors={})
+        where(
+          selectors[:folder] || 0,
+          ->(node) { true }
+        )
+      end
 
       def folders(selectors={})
         where(
-          selectors[:parent] || 0,
+          selectors[:folder] || 0,
           ->(node) { node['nodeClass'] == 'folder' }
         )
       end
@@ -23,7 +29,7 @@ module EmailCenterApi::Nodes
       private
 
       def where(folder_id, selector)
-        finder
+        EmailCenterApi::Query.new(TREE_ROOT)
         .tree('folder', folder_id)
         .select{ |node| selector.call(node) }
         .map { |node| build(node) }
@@ -33,10 +39,6 @@ module EmailCenterApi::Nodes
 
       def build(node)
         new(node['text'], node['nodeId'], node['nodeClass'])
-      end
-
-      def finder
-        EmailCenterApi::Query.new(TREE_ROOT)
       end
     end
 
@@ -68,8 +70,6 @@ module EmailCenterApi::Nodes
       super if is_folder?
       EmailCenterApi::Actions.new.trigger(node_id, email_address, options)
     end
-
-    private
 
     def is_folder?
       node_class == 'folder'
