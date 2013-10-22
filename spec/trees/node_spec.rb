@@ -1,18 +1,6 @@
 require 'spec_helper'
 
-describe EmailCenterApi::Trees::Email do
-  describe '.all' do
-    it 'returns 3 items' do
-      described_class.all.length.should == 3
-    end
-
-    it 'returns templates with the correct text and node_id' do
-      template = described_class.all.first
-      template.name.should == 'An email'
-      template.node_id.should == 10
-    end
-  end
-
+describe EmailCenterApi::Trees::Node do
   describe '.emails' do
     context 'when a folder is specified' do
 
@@ -54,20 +42,20 @@ describe EmailCenterApi::Trees::Email do
     end
   end
 
-  describe '.folder' do
-    context 'when a parent node id is not passed in' do
-      it 'queries the root node' do
-        json_object = [{ 'text' => 'Reevoo-test', 'nodeId' => '145', 'nodeClass' => 'folder'}]
-
-        expect_any_instance_of(
-          EmailCenterApi::Helpers::Tree
-        ).to receive(:root).and_return(json_object)
-
-        expect(described_class.emails(folder: 584)).to eq([
-
-        ])
-
-      end
-    end
-  end
+  #describe '.folder' do
+  #  context 'when a parent node id is not passed in' do
+  #    it 'queries the root node' do
+  #      json_object = [{ 'text' => 'Reevoo-test', 'nodeId' => '145', 'nodeClass' => 'folder'}]
+  #
+  #      expect_any_instance_of(
+  #        EmailCenterApi::Helpers::Tree
+  #      ).to receive(:root).and_return(json_object)
+  #
+  #      expect(described_class.emails(folder: 584)).to eq([
+  #
+  #      ])
+  #
+  #    end
+  #  end
+  #end
 end

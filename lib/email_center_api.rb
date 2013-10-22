@@ -26,7 +26,7 @@ require 'yaml'
 require 'delegate'
 
 require "email_center_api/trees/template"
-require "email_center_api/trees/email"
+require "email_center_api/trees/node"
 
 require "email_center_api/helpers/http_client"
 require "email_center_api/helpers/tree"

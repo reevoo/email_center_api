@@ -1,5 +1,5 @@
 module EmailCenterApi::Trees
-  class Email
+  class Node
     TREE_ROOT = 'email'
 
     attr_reader :name, :node_id, :node_class
