@@ -42,20 +42,33 @@ describe EmailCenterApi::Trees::Node do
     end
   end
 
-  #describe '.folder' do
-  #  context 'when a parent node id is not passed in' do
-  #    it 'queries the root node' do
-  #      json_object = [{ 'text' => 'Reevoo-test', 'nodeId' => '145', 'nodeClass' => 'folder'}]
-  #
-  #      expect_any_instance_of(
-  #        EmailCenterApi::Helpers::Tree
-  #      ).to receive(:root).and_return(json_object)
-  #
-  #      expect(described_class.emails(folder: 584)).to eq([
-  #
-  #      ])
-  #
-  #    end
-  #  end
-  #end
+  describe '.folders' do
+    context 'when a parent node id is not passed in' do
+      it 'queries the root node' do
+        json_object = [{ 'text' => 'Reevoo-test', 'nodeId' => '145', 'nodeClass' => 'folder'}]
+
+        expect_any_instance_of(
+          EmailCenterApi::Helpers::Tree
+        ).to receive(:tree).with('folder', 0).and_return(json_object)
+
+        expect(described_class.folders).to eq([
+          described_class.new('Reevoo-test', 145, 'folder')
+        ])
+      end
+    end
+
+    context 'when a parent node id is passed in' do
+      it 'queries within the specified folder' do
+        json_object = [{ 'text' => 'Reevoo-test', 'nodeId' => '145', 'nodeClass' => 'folder'}]
+
+        expect_any_instance_of(
+          EmailCenterApi::Helpers::Tree
+        ).to receive(:tree).with('folder', 777).and_return(json_object)
+
+        expect(described_class.folders(parent: 777)).to eq([
+          described_class.new('Reevoo-test', 145, 'folder')
+        ])
+      end
+    end
+  end
 end
