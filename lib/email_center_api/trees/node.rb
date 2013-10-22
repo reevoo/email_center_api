@@ -55,16 +55,17 @@ module EmailCenterApi::Trees
     end
 
     def folders
-      raise 'invalid' unless is_folder?
+      super unless is_folder?
       self.class.folders(parent: node_id)
     end
 
     def emails
-      raise 'invalid' unless is_folder?
+      super unless is_folder?
       self.class.emails(folder: node_id)
     end
 
     def trigger(email_address, options={})
+      super if is_folder?
       EmailCenterApi::Helpers::Trigger.new.trigger(node_id, email_address, options)
     end
 

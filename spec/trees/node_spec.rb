@@ -74,22 +74,30 @@ describe EmailCenterApi::Trees::Node do
 
   describe '.trigger' do
     context 'when an email type node' do
-      it 'will trigger sending of the email' do
-        email_address = 'test@reevoo.com'
-        options = {
-          'Reviews' => {
-            'retailer_product_name' => 'Test product',
-            'retailer_name' => 'test retailer',
-            'retailer_from' => 'reply@reevoo.com'
-          }
+      let(:email_address) { 'test@reevoo.com' }
+      let(:options) { {
+        'Reviews' => {
+          'retailer_product_name' => 'Test product',
+          'retailer_name' => 'test retailer',
+          'retailer_from' => 'reply@reevoo.com'
         }
+      } }
 
+      it 'will trigger sending of the email' do
         expect_any_instance_of(
           EmailCenterApi::Helpers::Trigger
         ).to receive(:trigger).with(100, email_address, options)
 
         email = EmailCenterApi::Trees::Node.new('Trigger Test', 100, 'email_triggered')
         email.trigger(email_address, options)
+      end
+
+      it 'will raise an arguement invalid error if node is not an email' do
+        email = EmailCenterApi::Trees::Node.new('Trigger Test', 100, 'folder')
+        expect {
+          email.trigger(email_address, options)
+        }.to raise_error(NoMethodError)
+
       end
     end
   end
