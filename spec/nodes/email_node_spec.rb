@@ -85,7 +85,7 @@ describe EmailCenterApi::Nodes::EmailNode do
 
       it 'will trigger sending of the email' do
         expect_any_instance_of(
-          EmailCenterApi::Trigger
+          EmailCenterApi::Actions
         ).to receive(:trigger).with(100, email_address, options)
 
         email = described_class.new('Trigger Test', 100, 'email_triggered')

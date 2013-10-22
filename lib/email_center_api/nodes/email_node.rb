@@ -66,7 +66,7 @@ module EmailCenterApi::Nodes
 
     def trigger(email_address, options={})
       super if is_folder?
-      EmailCenterApi::Trigger.new.trigger(node_id, email_address, options)
+      EmailCenterApi::Actions.new.trigger(node_id, email_address, options)
     end
 
     private

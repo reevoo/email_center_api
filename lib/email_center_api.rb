@@ -32,6 +32,6 @@ require "email_center_api/nodes/email_node"
 require "email_center_api/http_client"
 require "email_center_api/response_validator"
 require "email_center_api/query"
-require "email_center_api/trigger"
+require "email_center_api/actions"
 
 require "email_center_api/version"

@@ -1,5 +1,5 @@
 module EmailCenterApi
-  class Trigger
+  class Actions
 
     def trigger(email_id, email_address, options)
       get(

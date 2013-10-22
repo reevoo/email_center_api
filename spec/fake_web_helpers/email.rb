@@ -3,18 +3,8 @@ module FakeWebHelpers
     class << self
 
       def setup
-        #all_emails = [
-        #  {text: "An email", nodeId: "10", nodeClass: "email"},
-        #  {text: "Another email", nodeId: "11", nodeClass: "email"},
-        #  {text: "More email", nodeId: "12", nodeClass: "email"}
-        #].to_json
-        #
-        #FakeWeb.register_uri(:get, 'https://test:test@maxemail.emailcenteruk.com/api/json/tree?method=fetchRoot&tree=email&children[]=root',
-        #  :body => all_emails,
-        #  :content_type => 'application/json')
         setup_email_to_trigger
         setup_email_trigger
-
       end
 
       def setup_email_to_trigger
