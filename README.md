@@ -20,22 +20,75 @@ Or install it yourself as:
 
 ## Usage
 
-Experimental and Feature Incomplete. Will allow some manipulation of
-lists and recipients.
+### General configuration
 
-Try it out with something like this:
-
-    require 'rubygems'
     require 'email_center_api'
-    require 'pry'
 
+This will load a configuration yaml file from:
 
-    EmailCenterApi.configure do |config|
-      config.username = 'yourusername'
-      config.password = 'yourpassword'
-    end
+    'config/email_center_api.yml'
 
-    binding.pry    
+You can set a custom configuration file with:
+
+    EmailCenterApi.config_path = 'path/to/config'
+
+The config file should contain the keys:
+
+    base_uri
+    username
+    password
+
+### Email Node Class
+
+The 'email' tree can be queried in the following ways:
+
+    # All children elements of a node:
+    EmailCenterApi::Nodes::EmailNode.all(selector)
+
+    # Folders from a node:
+    EmailCenterApi::Nodes::EmailNode.folders(selector)
+
+    # Emails from a node:
+    EmailCenterApi::Nodes::EmailNode.emails(selector)
+
+where the selector contains an optional parameter to select the parent folder in the form:
+
+    {  folder: <folder node id> }
+
+This will return and array of EmailCenterApi::Nodes::EmailNode object.
+
+### Email Node Instance
+
+Each email node is a folder it can be queried in the following ways:
+
+    node = EmailCenterApi::Nodes::EmailNode.all(selector).first
+
+    # All children elements of a node:
+    node.all
+
+    # Folders from a node:
+    node.folders
+
+    # Emails from a node:
+    node.emails
+
+Alternatively an email node can be triggered to send an email:
+
+    node = EmailCenterApi::Nodes::EmailNode.all(selector).first
+
+    # All children elements of a node:
+    node.trigger(<email_address>, <options>)
+
+Where options is a hash containing the relevant profile data for the email.
+See [Maxemail Documentation](http://maxemail.emailcenteruk.com/manual/doku.php?id=maxemail:v6:webservices:email_send#trigger) for more details.
+
+### Email Template Node Instance
+
+Can be used to query all templates within the tree:
+
+    EmailCenterApi::Nodes::TemplateNode.all
+
+This returns a array of template instances which exposes ```name``` and ```nodeId``` attributes.
 
 ## Contributing
 
