@@ -21,9 +21,11 @@ module EmailCenterApi
     end
 
     def successful?
-      # Email center seems to only include response['success'] on failure.
-      return false unless response.success?
-      return true unless response.is_a?(Hash) && response['success'] == false
+      response.success? && missing_failure_status?
+    end
+
+    def missing_failure_status?
+      !(response.is_a?(Hash) && response['success'] == false)
     end
   end
 end
