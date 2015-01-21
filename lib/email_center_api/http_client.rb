@@ -8,6 +8,12 @@ module EmailCenterApi
         end
       end
 
+      def post(*args)
+        with_retries do
+          connection.post(*args)
+        end
+      end
+
       def connection
         @connection ||= Connection.tap{ |con| con.configure(EmailCenterApi.config) }
       end

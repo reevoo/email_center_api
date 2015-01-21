@@ -2,7 +2,7 @@ module EmailCenterApi
   class Actions
 
     def trigger(email_id, email_address, options)
-      get(
+      post(
         method: 'trigger',
         emailID: email_id,
         emailAddress: email_address,
@@ -10,8 +10,8 @@ module EmailCenterApi
       ).validate_and_return_response
     end
 
-    def get(query)
-      ResponseValidator.new(HttpClient.get('/email_send', :query => query))
+    def post(query)
+      ResponseValidator.new(HttpClient.post('/email_send', body: query))
     end
   end
 end
