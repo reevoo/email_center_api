@@ -1,7 +1,6 @@
 $LOAD_PATH << './'
 require 'email_center_api'
 
-require 'pry-debugger' unless ENV['RM_INFO']
 require 'fakeweb'
 require 'httparty'
 require 'json'
