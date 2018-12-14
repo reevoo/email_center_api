@@ -7,7 +7,11 @@ module EmailCenterApi
   DEFAULT_PATH = 'config/email_center_api.yml'
 
   def config
-    @config ||= YAML.load_file(config_path)
+    @config ||= begin
+      return nil unless File.exist?(config_path)
+      template = ERB.new(File.read(config_path))
+      YAML.load(template.result)
+    end
   end
 
   def config_path

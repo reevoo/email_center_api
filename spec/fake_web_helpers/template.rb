@@ -14,14 +14,14 @@ module FakeWebHelpers
       
       FakeWeb.register_uri(
         :get,
-        'https://test:test@maxemail.emailcenteruk.com/api/json/tree?method=fetchRoot&tree=email_template&children[]=root',
+        'https://test:123@maxemail.emailcenteruk.com/api/json/tree?method=fetchRoot&tree=email_template&children[]=root',
         body: all_templates,
         content_type: 'application/json'
       )
 
       FakeWeb.register_uri(
         :post,
-        'https://test:test@maxemail.emailcenteruk.com/api/json/email_send',
+        'https://test:123@maxemail.emailcenteruk.com/api/json/email_send',
         body: all_templates,
         content_type: 'application/json'
       )
